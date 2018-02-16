@@ -99,6 +99,17 @@ function parseNonLiteral(
         standaloneName: standaloneName(schema, keyNameFromDefinition, usedNames),
         type: 'BOOLEAN'
       })
+    case 'NAMED_CONST':
+      return set({
+        comment: schema.description,
+        keyName,
+        params: [{
+          ast: parse(schema.const!, options, rootSchema, undefined, false, processed, usedNames),
+          keyName: schema.tsEnumNames![0]
+        }],
+        standaloneName: standaloneName(schema, keyName, usedNames)!,
+        type: 'ENUM'
+      })
     case 'NAMED_ENUM':
       return set({
         comment: schema.description,
@@ -173,6 +184,14 @@ function parseNonLiteral(
         comment: schema.description,
         keyName,
         params: (schema.type as JSONSchema4TypeName[]).map(_ => parse({ type: _ }, options, rootSchema, undefined, true, processed, usedNames)),
+        standaloneName: standaloneName(schema, keyNameFromDefinition, usedNames),
+        type: 'UNION'
+      })
+    case 'UNNAMED_CONST':
+      return set({
+        comment: schema.description,
+        keyName,
+        params: [parse(schema.const!, options, rootSchema, undefined, false, processed, usedNames)],
         standaloneName: standaloneName(schema, keyNameFromDefinition, usedNames),
         type: 'UNION'
       })

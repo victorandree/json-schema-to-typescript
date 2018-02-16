@@ -132,6 +132,7 @@ json2ts -i foo.json -o foo.d.ts --style.singleQuote --no-style.semi
   - [x] object
   - [x] string
   - [x] homogeneous enum
+  - [x] const
   - [x] heterogeneous enum
 - [x] Non/extensible interfaces
 - [ ] Custom JSON-schema extensions
