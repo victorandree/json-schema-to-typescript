@@ -1,5 +1,4 @@
 import { readFileSync } from 'fs'
-import { JSONSchema4 } from 'json-schema'
 import { endsWith, merge } from 'lodash'
 import { dirname } from 'path'
 import { Options as PrettierOptions } from 'prettier'
@@ -9,6 +8,7 @@ import { normalize } from './normalizer'
 import { optimize } from './optimizer'
 import { parse } from './parser'
 import { dereference } from './resolver'
+import { JSONSchema } from './types/JSONSchema'
 import { error, stripExtension, Try } from './utils'
 import { validate } from './validator'
 
@@ -52,7 +52,7 @@ export function compileFromFile(
     () => readFileSync(filename),
     () => { throw new ReferenceError(`Unable to read file "${filename}"`) }
   )
-  const schema = Try<JSONSchema4>(
+  const schema = Try<JSONSchema>(
     () => JSON.parse(contents.toString()),
     () => { throw new TypeError(`Error parsing JSON in file "${filename}"`) }
   )
@@ -64,7 +64,7 @@ export function compileFromFile(
 }
 
 export async function compile(
-  schema: JSONSchema4,
+  schema: JSONSchema,
   name: string,
   options: Partial<Options> = {}
 ): Promise<string> {

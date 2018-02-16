@@ -1,4 +1,5 @@
 import { whiteBright } from 'cli-color'
+import { JSONSchema4 } from 'json-schema'
 import { cloneDeep } from 'lodash'
 import { JSONSchema, NormalizedJSONSchema } from './types/JSONSchema'
 import { justName, log, mapDeep, toSafeString } from './utils'
@@ -22,7 +23,7 @@ rules.set('Add empty `required` property if none is defined', (schema, rootSchem
 })
 
 rules.set('Transform `required`=false to `required`=[]', (schema, rootSchema) => {
-  if (stringify(schema) === stringify(rootSchema) && schema.required === false) {
+  if (stringify(schema) === stringify(rootSchema) && (schema as JSONSchema4).required === false) {
     schema.required = []
   }
   return schema

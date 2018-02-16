@@ -388,7 +388,7 @@ function getDefinitions(
       ...(isSchema && hasDefinitions(schema) ? schema.definitions : {}),
       ...Object.keys(schema).reduce<Definitions>((prev, cur) => ({
         ...prev,
-        ...getDefinitions(schema[cur], false, processed)
+        ...getDefinitions((schema as any)[cur], false, processed)
       }), {})
     }
   }

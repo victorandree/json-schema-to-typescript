@@ -1,15 +1,21 @@
-import { JSONSchema4 } from 'json-schema'
+import { JSONSchema6 } from 'json-schema'
 
 export type SCHEMA_TYPE = 'ALL_OF' | 'UNNAMED_SCHEMA' | 'ANY' | 'ANY_OF'
   | 'BOOLEAN' | 'NAMED_ENUM' | 'NAMED_SCHEMA' | 'NULL' | 'NUMBER' | 'STRING'
   | 'OBJECT' | 'ONE_OF' | 'TYPED_ARRAY' | 'REFERENCE' | 'UNION' |  'UNNAMED_ENUM'
   | 'UNTYPED_ARRAY' | 'UNNAMED_CONST' | 'NAMED_CONST'
 
-export interface JSONSchema extends JSONSchema4 {
+export interface JSONSchema extends JSONSchema6 {
   /**
    * schema extension to support numeric enums
    */
   tsEnumNames?: string[]
+
+  /** Backwards-compatibility with draft-04 */
+  id?: string
+
+  /** Backwards-compatibility with draft-03 */
+  extends?: string | string[]
 }
 
 // const SCHEMA_PROPERTIES = [
