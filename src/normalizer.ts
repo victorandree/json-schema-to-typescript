@@ -37,9 +37,17 @@ rules.set('Default additionalProperties to true', (schema, rootSchema) => {
 })
 
 rules.set('Default top level `id`', (schema, rootSchema, fileName) => {
-  if (!schema.id && stringify(schema) === stringify(rootSchema)) {
-    schema.id = toSafeString(justName(fileName))
+  if (!schema.$id) {
+    if (schema.id) {
+      schema.$id = schema.id
+      return schema
+    }
+
+    if (stringify(schema) === stringify(rootSchema)) {
+      schema.$id = toSafeString(justName(fileName))
+    }
   }
+
   return schema
 })
 

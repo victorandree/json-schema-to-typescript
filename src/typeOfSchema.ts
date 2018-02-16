@@ -35,7 +35,7 @@ export function typeOfSchema(schema: JSONSchema): SCHEMA_TYPE {
     case 'number': return 'NUMBER'
     case 'string': return 'STRING'
   }
-  if (schema.id) return 'NAMED_SCHEMA'
+  if (schema.$id || schema.id) return 'NAMED_SCHEMA'
   if (isPlainObject(schema) && Object.keys(schema).length) return 'UNNAMED_SCHEMA'
   return 'ANY'
 }

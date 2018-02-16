@@ -224,7 +224,7 @@ function standaloneName(
   keyNameFromDefinition: string | undefined,
   usedNames: UsedNames
 ) {
-  let name = schema.title || schema.id || keyNameFromDefinition
+  let name = schema.title || schema.$id || schema.id || keyNameFromDefinition
   if (name) {
     return generateName(name, usedNames)
   }
